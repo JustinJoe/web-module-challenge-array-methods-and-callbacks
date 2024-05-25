@@ -79,10 +79,23 @@ Use the higher-order function getWinnersByYear to do the following:
 💡 HINT: the strings returned need to exactly match the string in step 4.
  */
 
-function getWinnersByYear(/* code here */) {
-    /* code here */
-}
+function getWinnersByYear(fifaArr, getFinalsCb, getYearsCb, getWinnersCb) {
+    const finals = getFinalsCb(fifaArr)
+    const years = getYearsCb(fifaArr, getFinalsCb)
+    const winners = getWinnersCb(fifaArr, getFinalsCb)
+    // const winnersMessages = [];
 
+    // for (let i = 0; i < finals.length; i++) {
+    //     winnersMessages.push(`In ${years[i]}, ${winners[i]} won the world cup!`)
+    // }
+
+    const winnersMessages = finals.map((match, i) => {
+        return `In ${years[i]}, ${winners[i]} won the world cup!`
+    })
+
+    return winnersMessages;
+}
+console.log(getWinnersByYear(fifaData, getFinals, getYears, getWinners))
 
 
 /* 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 Task 6: 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀
@@ -99,10 +112,15 @@ Use the higher order function `getAverageGoals` to do the following:
  
 */
 
-function getAverageGoals(/* code here */) {
-    /* code here */
- }
+function getAverageGoals(getFinalsCb) {
+    const totalGoals = getFinalsCb.reduce((acc, cur, i) => {
+        return acc + cur["Home Team Goals"] + cur["Away Team Goals"]
+    }, 0)
+    const averageGoals = (totalGoals / getFinalsCb.length).toFixed(2)
 
+    return averageGoals;
+ }
+console.log(getAverageGoals(getFinals(fifaData)))
 
 
 
